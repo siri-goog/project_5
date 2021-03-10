@@ -8,8 +8,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 //--Routes setup
 const homeRouter = require('./routes/home')
+const movieRouter = require('./routes/movie')
 
-const PORT = 3000
+const PORT = 4000
 const app = express()
 app.set('view engine', 'ejs')
 
@@ -31,12 +32,14 @@ app.use(session({
 }));
 
 // Routes
+app.use('/', homeRouter)
 app.use('/home', homeRouter)
+app.use('/movie', movieRouter)
 
 // Handle 404 Error
 app.use((req, res, next) => {
     res.status(404).send(
-        '<h1> The page you are looking for does not exist or an other errir occurred.</h1><h2>Please go back and choose a new direction.</h2>');
+        '<h1> The page you are looking for does not exist or an other error occurred.</h1><h2>Please go back and choose a new direction.</h2>');
 })
 
 app.listen(PORT, () => {
