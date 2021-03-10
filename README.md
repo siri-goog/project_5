@@ -1,5 +1,5 @@
 ## Project 5: Movie rating management
-A movie rating management website
+A movie rating management website.
 This is project 5 Incode2 bootcamp Incode Academy
 
 ## Table of contents
