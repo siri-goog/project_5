@@ -3,8 +3,53 @@
 <div id="movieDetails" class="div-center">
     <p id="movie_id" class="hide"><%= movie_id %></p>
 </div>
-<div id="rating" class="div-center">
-    <p>*****</p>
-</div>
+
+<% if(!user_id){ %>
+    <div class="container">
+        <div class="container_signin">
+            <p>Review this movie? <a href="/login/<%= movie_id %>">Log in</a>.</p>
+        </div>
+    </div>
+<% } else { %>
+    <% if(!rating){ %>
+        <div>
+            <form method="POST" action="/movie">
+                <div class="container_rating">
+                    <h3>How would you rate this movie?</h3>
+                    <div id="rating" class="container_star">
+                        <div>
+                            <input type="radio" name="rate" id="rate-5">
+                            <label for="rate-5" class="fa fa-star"></label>
+                        
+                            <input type="radio" name="rate" id="rate-4">
+                            <label for="rate-4" class="fa fa-star"></label>
+                        
+                            <input type="radio" name="rate" id="rate-3">
+                            <label for="rate-3" class="fa fa-star"></label>
+                        
+                            <input type="radio" name="rate" id="rate-2">
+                            <label for="rate-2" class="fa fa-star"></label>
+                        
+                            <input type="radio" name="rate" id="rate-1">
+                            <label for="rate-1" class="fa fa-star"></label>
+                            
+                            <p class="caption"></p>
+                            <span id="ratingInput"></span>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" name="btnPost" id="btnPost">Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <% } else { %>
+        <div class="container_signin">
+            <p>Thank you so much for review this movie.</p>
+        </div>
+    <%}%>
+<%}%>
+
+<script src="/static/js/rating.js"></script>
 
 <%- include('footer') -%>

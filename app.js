@@ -3,15 +3,20 @@ const express = require('express')
 const morgan = require('morgan')
 const path = require('path')
 //--Session setup
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
-//--Routes setup
-const homeRouter = require('./routes/home')
-const movieRouter = require('./routes/movie')
-
 const PORT = 4000
 const app = express()
 app.set('view engine', 'ejs')
+//--Routes setup
+const homeRouter = require('./routes/home')
+const movieRouter = require('./routes/movie')
+const loginRouter = require('./routes/login')
+const registerRouter = require('./routes/register')
+const ratingRouter = require('./routes/rating')
+const logoutRouter = require('./routes/logout')
+const errorRouter = require('./routes/error')
 
 app.use(morgan('dev'))
 app.use('/static', express.static(path.join(__dirname, 'public')))
@@ -34,12 +39,11 @@ app.use(session({
 app.use('/', homeRouter)
 app.use('/home', homeRouter)
 app.use('/movie', movieRouter)
-
-// Handle 404 Error
-app.use((req, res, next) => {
-    res.status(404).send(
-        '<h1> The page you are looking for does not exist or an other error occurred.</h1><h2>Please go back and choose a new direction.</h2>');
-})
+app.use('/login', loginRouter)
+app.use('/register', registerRouter)
+app.use('/rating', ratingRouter)
+app.use('/logout', logoutRouter)
+app.use('*', errorRouter)
 
 app.listen(PORT, () => {
     console.log(`server is listening on localhost:${PORT}!\n`)

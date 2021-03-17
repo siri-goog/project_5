@@ -1,0 +1,42 @@
+<%- include('header') -%>
+
+<!-- Content -->
+<form method="POST" action="/register">
+  <div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+
+    <label for="firstname"><b>Firstname *</b></label>
+    <span class="alert"><label id="alertFirstname"><%= errFirstname %></label></span>
+    <input name="firstname" type="text" id="firstname" placeholder="Enter firstname">
+
+    <label for="lastname"><b>Last Name *</b></label>
+    <span class="alert"><label id="alertLastname"><%= errLastname %></label></span>
+    <input name="lastname" type="text" id="lastname" placeholder="Enter lastname">
+
+    <label for="email"><b>Email address *</b></label>
+    <span class="alert"><label class="alert" id="alertEmail"><%= errEmail %></label></span>
+    <input name="email" type="email" id="email" placeholder="Enter email">
+    
+    <label for="password"><b>Password *</b></label>
+    <span class="alert"><label id="alertPassword"><%= errPassword %></label></span>
+    <p class="remark">The password must be at least 8 characters with at least 1 lowercase, 1 uppercase, 1 number and 1 symbol.</p>
+    <input name="password" type="password" id="password" placeholder="Enter Password">
+    
+    <label for="confirmPassword"><b>Confirm Password *</b></label>
+    <span class="alert"><label id="alertConfirmPassword"><%= errConfirmPassword %></label></span>
+    <input name="confirmPassword" type="password" id="confirmPassword" placeholder="Confirm your password here">
+    
+    <hr>
+
+    <button type="submit" class="registerBtn" name="registerBtn" id="registerBtn">Register</button>
+  </div>
+  
+  <div class="container_signin">
+    <p>Already have an account? <a href="/login">Log in</a>.</p>
+  </div>
+</form>
+
+<script src="/static/js/validation_register.js"></script>
+<%- include('footer') -%>
