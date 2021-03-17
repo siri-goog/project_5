@@ -56,7 +56,6 @@ router.post('/', (req, res) => {
                 if (user.length === 1) {
                     req.session.user_id = user[0].user_id
                     req.session.username = user[0].firstname
-                    console.log(user[0])
                     if (movie_id === "") {
                         res.redirect('/home')
                     } else {

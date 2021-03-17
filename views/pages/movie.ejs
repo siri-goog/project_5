@@ -11,17 +11,17 @@
         </div>
     </div>
 <% } else { %>
-    <% if(!rating){ %>
+    <% if(rating){ %>
         <div>
-            <form method="POST" action="/movie">
+            <form method="POST" action="/movie/<%= movie_id %>">
                 <div class="container_rating">
                     <h3>How would you rate this movie?</h3>
                     <div id="rating" class="container_star">
                         <div>
-                            <input type="radio" name="rate" id="rate-5">
+                            <input type="radio" name="rate5" id="rate-5">
                             <label for="rate-5" class="fa fa-star"></label>
                         
-                            <input type="radio" name="rate" id="rate-4">
+                            <input type="radio" name="rate4" id="rate-4">
                             <label for="rate-4" class="fa fa-star"></label>
                         
                             <input type="radio" name="rate" id="rate-3">
@@ -34,7 +34,6 @@
                             <label for="rate-1" class="fa fa-star"></label>
                             
                             <p class="caption"></p>
-                            <span id="ratingInput"></span>
                         </div>
                     </div>
                     <div class="btn">
@@ -44,8 +43,13 @@
             </form>
         </div>
     <% } else { %>
-        <div class="container_signin">
-            <p>Thank you so much for review this movie.</p>
+        <div class="container">
+            <div class="container_signin">
+                <p>Thank you so much for review this movie.</p>
+                <div class="btn">
+                    <button type="submit" name="editBtn" id="editBtn">Edit</button>
+                </div>
+            </div>
         </div>
     <%}%>
 <%}%>
