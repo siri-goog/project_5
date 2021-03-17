@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page </title>
+    <title>Movie Reviews</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- References to external CSS files -->
     <link href="/static/style/application.css" rel="stylesheet" />
+    <link href="/static/style/form.css" rel="stylesheet" />
+    <link href="/static/style/rating.css" rel="stylesheet" />
     <!-- References to external JQuery files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- References to external JS files -->
     <script src="/static/js/script.js"></script>
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
 <!-- Header -->
 <div class="header">
-  <h1>Logo</h1>
-  <p>Title</p>
+  <!-- <h1>Logo</h1>
+  <p>Title</p> -->
 </div>
 
 <!-- Navigation Bar -->
 <div class="navbar">
-  <a href="#"></a>
-  <a href="#">Welcome ... Siri</a>
-  <a href="#" style="width: 70%;"></a>
-  <a href="#">Home</a>
-  <a href="#">Login</a>
+  <% if(username){ %>
+    <a id="username" href="#">Welcome <%= username %></a>
+    <div style="width: 70%;"></div>
+  <% } else { %>
+    <div style="width: 80%;"></div>
+  <%}%>
+    <a href="/home">Home</a>
+  <% if(!user_id){ %>
+    <a href="/login">Login</a>
+    <!--<a href="/register">Register</a> -->
+  <% } else { %>
+    <a href="/logout">Logout</a>
+  <%}%>
 </div>

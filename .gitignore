@@ -1,1 +1,5 @@
 node_modules
+database.js
+rating.js
+rating.ejs
+test.css
