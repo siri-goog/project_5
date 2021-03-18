@@ -42,5 +42,4 @@ router.get('/rating/:movie_id', (req, res) => {
     })
 })
 
-
 module.exports = router

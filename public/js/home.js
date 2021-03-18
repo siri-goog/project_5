@@ -17,7 +17,7 @@ function apiConnection() {
 function getGenres() {
   $.getJSON('https://api.themoviedb.org/3/genre/movie/list?api_key=fccb47b5258e28ee874723f58bb8cdc1&language=en-US')
   .then(result => {
-    const genreSelect = $('body').find('#genre')
+    const genreSelect = $('body').find('#searchGenre')
     for(var i = 0; i < result.genres.length; i++) {
       const genreOption = $('<option>')
       genreOption.prop('value', result.genres[i].id)
@@ -46,6 +46,7 @@ function getMovies() {
       movieCard.addClass('card')
       movieColumn.append(movieCard)
 
+      //Poster
       const moviePoster = $('<img>')
       const posterPath = base_url + poster_size + "/" + result.results[i].poster_path
       moviePoster.prop('src', posterPath)
@@ -54,11 +55,32 @@ function getMovies() {
       const br = $('<br>')
       movieCard.append(br)
 
+      //Title
       const movieTitle = $('<a>')
       movieTitle.prop('id', result.results[i].id)
       movieTitle.prop('href', "/movie/" + result.results[i].id)
       movieTitle.text(result.results[i].title)
       movieCard.append(movieTitle)
+
+      //Rating and Reviewers
+      const movieRating = $('<p>')
+      const movieReviewers = $('<p>')
+      let link = '/home/rating/'+ result.results[i].id
+      $.getJSON(link)
+        .then(data => {
+          if(data.reviewers === 0) {
+            movieRating.text("No Rating Yet")
+            movieReviewers.text("( " + data.reviewers + " reviews )")
+          } else {
+            movieRating.text("Rating: " + data.communityRating + "/5 ")
+            movieReviewers.text("( " + data.reviewers + " reviews )")
+          }
+          movieCard.append(movieRating)
+          movieCard.append(movieReviewers)
+        })
+      .catch(err => {
+        console.log(err)
+      });
     }
   })
   .catch(err => {
@@ -102,41 +124,43 @@ function getDetails(movie_id) {
 function searchMovies(title) {
   apiConnection()
 
+  var movieDetails = $('body').find('.column')
+  movieDetails.hide()
+
   const endpoint = 'https://api.themoviedb.org/3/search/movie?query='+ title +'&api_key=fccb47b5258e28ee874723f58bb8cdc1'
   $.getJSON(endpoint)
-  .then(result => {
-    console.log(result.results)
-    const movieRow = $('body').find('.row')
-    for(var i = 0; i < result.results.length; i++) {
-      const movieColumn = $('<div>')
-      movieColumn.addClass('column')
-      movieRow.append(movieColumn)
+    .then(result => {
+      const movieRow = $('body').find('.row')
+      for(var i = 0; i < result.results.length; i++) {
+        if (result.results[i].poster_path !== null) {
+          const movieColumn = $('<div>')
+          movieColumn.addClass('column')
+          movieRow.append(movieColumn)
 
-      const movieCard = $('<div>')
-      movieCard.addClass('card')
-      movieColumn.append(movieCard)
+          const movieCard = $('<div>')
+          movieCard.addClass('card')
+          movieColumn.append(movieCard)
 
-      if (result.results[i].poster_path != null) {
-        const moviePoster = $('<img>')
-        const posterPath = base_url + poster_size + "/" + result.results[i].poster_path
-        moviePoster.prop('src', posterPath)
-        movieCard.append(moviePoster)
+          const moviePoster = $('<img>')
+          const posterPath = base_url + poster_size + "/" + result.results[i].poster_path
+          moviePoster.prop('src', posterPath)
+          movieCard.append(moviePoster)
+
+          const br = $('<br>')
+          movieCard.append(br)
+
+          const movieTitle = $('<a>')
+          movieTitle.prop('id', result.results[i].id)
+          movieTitle.prop('href', "/movie/" + result.results[i].id)
+          movieTitle.text(result.results[i].title)
+          movieCard.append(movieTitle)
+        }
       }
-
-      const br = $('<br>')
-      movieCard.append(br)
-
-      const movieTitle = $('<a>')
-      movieTitle.prop('id', result.results[i].id)
-      movieTitle.prop('href', "/movie/" + result.results[i].id)
-      movieTitle.text(result.results[i].title)
-      movieCard.append(movieTitle)
-    }
-  })
-  .catch(err => {
-    // display error
-    console.log("Error: API [Search movies]")
-  })
+    })
+    .catch(err => {
+      // display error
+      console.log("Error: API [Search movies]")
+    })
 }
 
 $(document).ready(function(){

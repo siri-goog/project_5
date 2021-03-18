@@ -20,12 +20,10 @@ const errorRouter = require('./routes/error')
 
 app.use(morgan('dev'))
 app.use('/static', express.static(path.join(__dirname, 'public')))
-//--Parse URL-encoded bodies (as sent by HTML forms)
+//--initialize body-parser to parse incoming parameters requests to req.body
 app.use(express.urlencoded({extended: true}))
 //--Parse JSON bodies (as sent by API clients)
 app.use(express.json());
-//--initialize body-parser to parse incoming parameters requests to req.body
-app.use(bodyParser.urlencoded({ extended: true }));
 //--initialize cookie-parser to allow us access the cookies stored in the browser
 app.use(cookieParser());
 //--initialize express-session to allow tracking the logged-in user across sessions
