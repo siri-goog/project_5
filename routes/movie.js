@@ -60,6 +60,7 @@ router.get('/:movie_id', (req, res) => {
     }
 })
 router.post('/:movie_id', (req, res) => {
+    console.log(req.body)
     const movie_id = req.params.movie_id
     const user_id = req.session.user_id
     let rating = ""
@@ -74,15 +75,13 @@ router.post('/:movie_id', (req, res) => {
     } else if (req.body.rate1 === "on") {
         rating = 1
     }
-
     try {
         db.query('INSERT INTO ratings(movie_id, user_id, rating) VALUES ($1, $2, $3);', [movie_id, user_id, rating])
         .then (() => {
             res.redirect('/movie/' + movie_id)
         })
         .catch((err) => {
-            res.render('pages/error', {
-            })
+            console.log(err)
         })
     } catch (error) {
         console.log(error.message)
@@ -119,6 +118,7 @@ router.post('/:movie_id/edit', (req, res) => {
         console.log(error)
     }
 })
+//--Update rating
 router.get('/:movie_id/update', (req, res) => {
     res.redirect('/home');
 })
