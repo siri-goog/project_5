@@ -12,44 +12,84 @@
     </div>
 <% } else { %>
     <% if(!rating){ %>
-        <div>
-            <form method="POST" action="/movie">
-                <div class="container_rating">
-                    <h3>How would you rate this movie?</h3>
-                    <div id="rating" class="container_star">
-                        <div>
-                            <input type="radio" name="rate" id="rate-5">
-                            <label for="rate-5" class="fa fa-star"></label>
-                        
-                            <input type="radio" name="rate" id="rate-4">
-                            <label for="rate-4" class="fa fa-star"></label>
-                        
-                            <input type="radio" name="rate" id="rate-3">
-                            <label for="rate-3" class="fa fa-star"></label>
-                        
-                            <input type="radio" name="rate" id="rate-2">
-                            <label for="rate-2" class="fa fa-star"></label>
-                        
-                            <input type="radio" name="rate" id="rate-1">
-                            <label for="rate-1" class="fa fa-star"></label>
+        <% if(!edit){ %>
+            <div id="postRating">
+                <form method="POST" action="/movie/<%= movie_id %>">
+                    <div class="container_rating">
+                        <h3>How would you rate this movie?</h3>
+                        <div id="rating" class="container_star">
+                            <div>
+                                <input type="radio" name="rate5" id="rate-5">
+                                <label for="rate-5" class="fa fa-star"></label>
                             
-                            <p class="caption"></p>
-                            <span id="ratingInput"></span>
+                                <input type="radio" name="rate4" id="rate-4">
+                                <label for="rate-4" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate3" id="rate-3">
+                                <label for="rate-3" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate2" id="rate-2">
+                                <label for="rate-2" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate1" id="rate-1">
+                                <label for="rate-1" class="fa fa-star"></label>
+                                
+                                <p class="caption"></p>
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button type="submit" name="btnPost" id="btnPost">Post</button>
                         </div>
                     </div>
-                    <div class="btn">
-                        <button type="submit" name="btnPost" id="btnPost">Post</button>
+                </form>
+            </div>
+        <% } else { %>
+            <div id="editRating">
+                <form method="POST" action="/movie/<%= movie_id %>/update">
+                    <div class="container_rating">
+                        <h3>How would you rate this movie?</h3>
+                        <div id="rating" class="container_star">
+                            <div>
+                                <input type="radio" name="rate5" id="rate-5">
+                                <label for="rate-5" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate4" id="rate-4">
+                                <label for="rate-4" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate3" id="rate-3">
+                                <label for="rate-3" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate2" id="rate-2">
+                                <label for="rate-2" class="fa fa-star"></label>
+                            
+                                <input type="radio" name="rate1" id="rate-1">
+                                <label for="rate-1" class="fa fa-star"></label>
+                                
+                                <p class="caption"></p>
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button type="submit" name="btnUpdate" id="btnUpdate">Update</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        <%}%>
     <% } else { %>
-        <div class="container_signin">
-            <p>Thank you so much for review this movie.</p>
+        <div class="container">
+            <div class="container_signin">
+                <p>Thank you so much for review this movie.</p>
+                <form method="POST" action="/movie/<%= movie_id %>/edit">
+                    <div class="btn">
+                        <button type="submit" name="editBtn" id="editBtn">Edit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     <%}%>
 <%}%>
 
-<script src="/static/js/rating.js"></script>
+<!-- References to external JS files -->
+<script src="/static/js/movieDetails.js"></script>
 
 <%- include('footer') -%>

@@ -12,12 +12,20 @@ let errPassword = ""
 let errConfirmPassword = ""
 
 router.get('/', (req, res) => {
+    errFirstname = ""
+    errLastname = ""
+    errEmail = ""
+    errPassword = ""
+    errConfirmPassword = ""
+    
     res.render('pages/register', {
         errFirstname: errFirstname,
         errLastname: errLastname,
         errEmail: errEmail,
         errPassword: errPassword,
-        errConfirmPassword: errConfirmPassword
+        errConfirmPassword: errConfirmPassword,
+        user_id: req.session.user_id,
+        username: req.session.username
     });
 })
 router.post('/', (req, res) => {
@@ -35,7 +43,7 @@ router.post('/', (req, res) => {
         //--Check lastname
         if (validator.isEmpty(lastname)) {
             errMsg = true
-            errLastname = "Please enter firstname"
+            errLastname = "Please enter lastname"
         } else {
             errLastname = ""
         }
@@ -92,7 +100,17 @@ router.post('/', (req, res) => {
                         })
                     })
                 } else {
-                    //"This email address is already being used"
+                    //Email address is already being used"
+                    errEmail = "This email address is already being used"
+                    res.render('pages/register', {
+                        errFirstname: errFirstname,
+                        errLastname: errLastname,
+                        errEmail: errEmail,
+                        errPassword: errPassword,
+                        errConfirmPassword: errConfirmPassword,
+                        user_id: req.session.user_id,
+                        username: req.session.username
+                    });
                 }
             })
             .catch((err) => {
@@ -103,6 +121,13 @@ router.post('/', (req, res) => {
         } else {
             //Display error message
             res.render('pages/register', {
+                errFirstname: errFirstname,
+                errLastname: errLastname,
+                errEmail: errEmail,
+                errPassword: errPassword,
+                errConfirmPassword: errConfirmPassword,
+                user_id: req.session.user_id,
+                username: req.session.username
             });
         }
     } catch (error) {

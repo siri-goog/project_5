@@ -35,7 +35,20 @@ function validateEmail(email, emailAlert) {
 
 //Function: validate password 
 function validatePassword(password, passwordAlert) {
+    var result = true
 
+    var strongRegex = new RegExp("^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+
+    if (strongRegex.test(password.value)) {
+        console.log("Please enter a valid e-mail address.")
+        passwordAlert.innerHTML = "Please enter a valid e-mail address."
+        password.focus()
+        result = false;
+    }else {
+        passwordAlert.innerHTML = ""
+    }
+
+    return result
 }
 
 function validate() {
@@ -68,7 +81,7 @@ function validate() {
     if (checkRequired(password, alertPassword) === false) {
         finalResult = false
     } else if (validatePassword(confirmPassword, alertConfirmPassword) === false) {
-
+        //finalResult = false
     }
     if (checkRequired(confirmPassword, alertConfirmPassword) === false) {
         finalResult = false

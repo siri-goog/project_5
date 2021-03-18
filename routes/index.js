@@ -18,15 +18,10 @@ router.get('/rating/:movie_id', (req, res) => {
         if (data.length > 0) {
             let reviewers = data.length
             let sum = 0
-
             for (let i = 0; i < data.length; i++) {
-                sum += data[i].rating
+                sum += data[0].rating
             }
             let communityRating = sum/reviewers
-            if (sum%reviewers !== 0) {
-                communityRating = parseFloat(communityRating).toFixed(1)
-            }
-            
             res.json({
                 movie_id: req.params.id, 
                 communityRating: communityRating, 
@@ -46,6 +41,5 @@ router.get('/rating/:movie_id', (req, res) => {
         })
     })
 })
-
 
 module.exports = router

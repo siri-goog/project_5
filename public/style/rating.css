@@ -64,20 +64,3 @@ input#rate-5:checked ~ label{
 #rate-5:checked ~ p:before{
   content: "I just love it 😍";
 }
-
-/* Rating */
-#rate-1:checked ~ span:before{
-  content: "1";
-}
-#rate-2:checked ~ span:before{
-  content: "2";
-}
-#rate-3:checked ~ span:before{
-  content: "3";
-}
-#rate-4:checked ~ span:before{
-  content: "4";
-}
-#rate-5:checked ~ span:before{
-  content: "5";
-}

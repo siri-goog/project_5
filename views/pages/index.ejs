@@ -15,7 +15,18 @@
   </div>
 </div>
 
-<div class="row" id="movieRow">
+<div class="row">
+    <% for (let i=0; i<20; i++) { %>
+        <div class="column">
+            <div class="card">
+                <img id="imgPoster_<%= i %>">
+                <br>
+                <a id="title_<%= i %>"></a>
+                <br>
+                <p id="rating_<%= i %>"></p><p id="reviewers_<%= i %>"></p>
+            </div>
+        </div>
+    <% } %>
 </div>
 
 <!-- References to external JS files -->

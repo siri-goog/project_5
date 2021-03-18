@@ -3,3 +3,5 @@ database.js
 rating.js
 rating.ejs
 test.css
+home_temp.ejs
+home_temp.js
